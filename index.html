@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Istimewa!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;700&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .controls {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            z-index: 1000;
+        }
+        .photo-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .photo-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 800px;
+        }
+        .photo-container:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .photo {
+            width: 300px;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .photo-caption {
+            flex: 1;
+            padding: 0 20px;
+            font-size: 1em;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .photo-container:nth-child(even) .photo-caption {
+            text-align: right;
+        }
+        .message-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .message {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .wish {
+            font-style: italic;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            background-color: #ee5253;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        #greeting-page, #main-card {
+            display: none;
+        }
+        #greeting-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .question-section {
+            margin-top: 40px;
+            background-color: #f9f9f95e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #resultMessage {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d48a29;
+        }
+        .love-message {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        .reply-section {
+            margin-top: 40px;
+        }
+        #reply-input {
+            padding: 10px;
+            font-size: 1em;
+            width: 300px;
+            margin-right: 10px;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Agar tidak mengganggu interaksi dengan elemen lain */
+            z-index: 999; /* Pastikan kanvas berada di atas semua elemen */
+        }
+    </style>
+</head>
+<body>
+    <div id="greeting-page">
+        <h1>Aloo Ayanggg</h1>
+        <p>Ada kejutan secuil buat kamu yang mungil. btw aku gabisa bikin kata-kata ya</p>
+        <button id="open-card">Buka Kartu Ulang Tahun</button>
+    </div>
+
+    <div id="main-card" class="container">
+        <div class="controls">
+            <button id="music-toggle">Putar Musik</button>
+        </div>
+
+        <h1>Selamat Ulang Tahun Ayangggg!</h1>
+        
+        <div class="photo-gallery">
+            <div class="photo-container">
+                <div class="photo" style="background-image: url(img/foto1.JPG);"></div>
+                <div class="photo-caption">
+                    <h2>Jaman covid</h2>
+                    <p>Fotbar pertama gasih? Maksudnya pertama kali di fotoin sebelum keterusan awokaowk.</p>
+                </div>
+            </div>
+            <div class="photo-container">
+                <div class="photo" style="background-image: url(img/foto2.jpg);"></div>
+                <div class="photo-caption">
+                    <h2>StudyTour</h2>
+                    <p>Ini pertanda mulainya sibucin kelas berdua mulu soalnya untung ada yang fotoin. LAGI GASIHHHHH?</p>
+                </div>
+            </div>
+            <div class="photo-container">
+                <div class="photo" style="background-image: url(img/foto3.jpg);"></div>
+                <div class="photo-caption">
+                    <h2>Kelulusan</h2>
+                    <p>Gak kerasa cok, kek baru kenalan udah tamat lagi aja. Bisa nambah gasih sejam aja gitu misalnya.</p>
+                </div>
+            </div>
+            <div class="photo-container">
+                <div class="photo" style="background-image: url(img/foto4.jpg);"></div>
+                <div class="photo-caption">
+                    <h2>Sunset</h2>
+                    <p>Ini lucu sih ngejar ambil foto sebelum terbenam awokawok, main ATV mau nabrak lagi</p>
+                </div>
+            </div>
+            <div class="photo-container">
+                <div class="photo" style="background-image: url(img/foto5.jpg);"></div>
+                <div class="photo-caption">
+                    <h2>StudyTour</h2>
+                    <p>Ini lupa siapa yang fotoin tapi keren sih blur blur gitu, candid nya dapet banget ASOYY</p>
+                </div>
+            </div>
+            <div class="photo-container">
+                <div class="photo" style="background-image: url(img/foto6.JPG);"></div>
+                <div class="photo-caption">
+                    <h2>Dadakan</h2>
+                    <p>Plis ini dadakan banget pulsek langsung booking buat foto studio awokawok. Nanti foto lagi ya!</p>
+                </div>
+            </div>
+        </div>        
+
+        <div class="message-box">
+            <div id="message-container" class="message"></div>
+            <div id="wish-container" class="wish"></div>
+            <button id="next-message">Pesan Selanjutnya</button>
+        </div>
+
+        <div class="question-section">
+            <h2>Mari Berinteraksi!</h2>
+            <div class="question">
+                <label for="name">Siapa nama kamu?</label>
+                <input type="text" id="name" name="name" placeholder="Masukkan namamu...">
+            </div>
+            <div class="question">
+                <label for="birthYear">Tahun berapa kamu lahir?</label>
+                <input type="text" id="birthYear" name="birthYear" placeholder="Masukkan tahun lahirmu...">
+            </div>
+            <div class="question">
+                <label for="favoriteColor">Apa warna kesukaanmu?</label>
+                <select id="favoriteColor" name="favoriteColor">
+                    <option value="">Pilih warna...</option>
+                    <option value="red">Merah</option>
+                    <option value="blue">Biru</option>
+                    <option value="green">Hijau</option>
+                    <option value="yellow">Kuning</option>
+                    <option value="purple">Ungu</option>
+                </select>
+            </div>
+            <button id="submitAnswers">Kirim Jawaban</button>
+        </div>
+        
+        <div id="resultMessage"></div>
+
+        <div class="love-message">
+            I Love You! ❤️
+        </div>
+
+        <div class="reply-section">
+            <input type="text" id="reply-input" placeholder="Tulis balasan...">
+            <button id="send-reply">Kirim Balasan</button>
+        </div>
+    </div>
+
+    <audio id="birthday-song" loop>
+        <source src="Happy Birthday song SLOW version.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const messages = [
+            "Selamat ulang tahun! Hari ini adalah hari spesial untukmu, dan aku merasa beruntung bisa merayakannya bersamamu.",
+            "Selamat ulang tahun! Hari ini adalah hari untuk merayakan semua hal hebat yang ada pada dirimu. Kebaikan hatimu, semangatmu, dan ketulusanmu telah memberi pengaruh positif bagi banyak orang. Terima kasih telah menjadi dirimu yang apa adanya.",
+            "Pada hari ulang tahunmu ini, aku ingin kamu tahu betapa pentingnya kehadiranmu dalam hidup ini. Senyummu membawa kebahagiaan, dan sikap positifmu menginspirasi banyak orang. Semoga hari ini menjadi awal dari tahun yang lebih baik.",
+            "Selamat ulang tahun! Kecerdasan dan perhatianmu telah memberi banyak dampak baik bagi sekitarmu. Semoga tahun ini membawa lebih banyak peluang dan kebahagiaan untukmu."
+        ];
+
+        const wishes = [
+            "Semoga langkah-langkahmu selalu diberkati dengan kesuksesan, impianmu tercapai, dan harimu dipenuhi dengan kebahagiaan.",
+            "Aku berharap tahun ini membawa kesehatan yang baik, kesuksesan yang melimpah, dan semakin banyak kebahagiaan untukmu.",
+            "Semoga kamu selalu dikelilingi oleh orang-orang yang mendukungmu, diberikan banyak kesempatan baru, dan menemukan kedamaian hati.",
+            "Semoga tahun ini memberikan lebih banyak alasan untuk tersenyum, lebih banyak momen untuk bersyukur, dan lebih banyak peluang untuk mencapai impianmu."
+        ];
+
+        const messageContainer = document.getElementById('message-container');
+        const wishContainer = document.getElementById('wish-container');
+        const musicToggle = document.getElementById('music-toggle');
+        const birthdaySong = document.getElementById('birthday-song');
+        const nextButton = document.getElementById('next-message');
+        const openCardButton = document.getElementById('open-card');
+        const sendReplyButton = document.getElementById('send-reply');
+        const replyInput = document.getElementById('reply-input');
+
+        let currentMessageIndex = 0;
+
+        function changeMessage() {
+            messageContainer.textContent = messages[currentMessageIndex];
+            wishContainer.textContent = wishes[currentMessageIndex];
+            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+        }
+
+        document.getElementById('submitAnswers').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const birthYear = document.getElementById('birthYear').value;
+            const favoriteColor = document.getElementById('favoriteColor').value;
+            const currentYear = new Date().getFullYear();
+            
+            if (name && birthYear && favoriteColor) {
+                const age = currentYear - parseInt(birthYear);
+                let colorMessage = '';
+                switch(favoriteColor) {
+                    case 'red':
+                        colorMessage = 'Kamu pasti orang yang bersemangat!';
+                        break;
+                    case 'blue':
+                        colorMessage = 'Kamu pasti orang yang tenang dan bijaksana.';
+                        break;
+                    case 'green':
+                        colorMessage = 'Kamu pasti sangat mencintai alam!';
+                        break;
+                    case 'yellow':
+                        colorMessage = 'Kamu pasti orang yang ceria dan optimis!';
+                        break;
+                    case 'purple':
+                        colorMessage = 'Kamu pasti orang yang kreatif dan unik!';
+                        break;
+                }
+                
+                const resultMessage = `Halo ${name}! Di ulang tahunmu yang ke-${age} ini, aku ingin mengucapkan selamat ulang tahun! ${colorMessage}`;
+                document.getElementById('resultMessage').textContent = resultMessage;
+            } else {
+                document.getElementById('resultMessage').textContent = 'Mohon isi semua pertanyaan.';
+            }
+        });
+
+        // Confetti effect
+        const canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const pieces = [];
+        const numberOfPieces = 100;
+        const colors = ['#f00', '#0f0', '#00f', '#ff0', '#0ff', '#f0f'];
+
+        function createPieces() {
+            console.log("Membuat potongan confetti...");
+            for (let i = 0; i < numberOfPieces; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * 0,
+                    r: Math.random() * 4 + 1,
+                    d: Math.random() * numberOfPieces,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.floor(Math.random() * 10) - 10,
+                    tiltAngleIncrement: Math.random() * 0.07 + 0.05,
+                    tiltAngle: 0,
+                });
+            }
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            pieces.forEach((p) => {
+                ctx.beginPath();
+                ctx.lineWidth = p.r / 2;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+                ctx.stroke();
+            });
+
+            updateConfetti();
+
+            requestAnimationFrame(drawConfetti);
+        }
+
+        function updateConfetti() {
+            for (let i = 0; i < pieces.length; i++) {
+                pieces[i].tiltAngle += pieces[i].tiltAngleIncrement;
+                pieces[i].y += (Math.cos(pieces[i].d) + 3 + pieces[i].r / 2) / 2;
+                pieces[i].x += Math.sin(pieces[i].tiltAngle) * 2;
+
+                if (pieces[i].y > canvas.height) {
+                    pieces[i].x = Math.random() * canvas.width;
+                    pieces[i].y = -10; // Reset position to start from the top again
+                    pieces[i].tilt = Math.floor(Math.random() * 10) - 10;
+                    pieces[i].tiltAngleIncrement = Math.random() * 0.07 + 0.05;
+                    pieces[i].tiltAngle = 0;
+                }
+            }
+        }
+
+        musicToggle.addEventListener('click', () => {
+            if (birthdaySong.paused) {
+                birthdaySong.play();
+                musicToggle.textContent = 'Hentikan Musik';
+            } else {
+                birthdaySong.pause();
+                musicToggle.textContent = 'Putar Musik';
+            }
+        });
+
+        nextButton.addEventListener('click', changeMessage);
+
+        openCardButton.addEventListener('click', () => {
+            document.getElementById('greeting-page').style.display = 'none';
+            document.getElementById('main-card').style.display = 'block';
+            createPieces(); // Start confetti when the card is opened
+            drawConfetti(); // Start drawing confetti
+        });
+
+        sendReplyButton.addEventListener('click', () => {
+            const reply = replyInput.value;
+            if (reply) {
+                // Ganti nomor WhatsApp sesuai kebutuhan
+                window.open(`https://wa.me/6285224203914?text=${encodeURIComponent(reply)}`, '_blank');
+            }
+        });
+
+        // Inisialisasi pesan pertama
+        changeMessage();
+    </script>
+</body>
+</html>
